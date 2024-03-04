@@ -1,5 +1,5 @@
 resource "aws_lb" "mv_lb" {
-  name               = "sharmi-lb-asg"
+  name               = "mahaveer-lb-asg"
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.mv_sg_for_elb.id]
@@ -61,9 +61,9 @@ resource "aws_launch_template" "mv_ec2_launch_templ" {
 
 resource "aws_autoscaling_group" "mv_asg" {
   # no of instances
-  desired_capacity = 1
-  max_size         = 1
-  min_size         = 1
+  desired_capacity = var.desired_capacity
+  max_size         = var.max_size
+  min_size         = var.min_size
 
   # source
   target_group_arns = [aws_lb_target_group.mv_alb_tg.arn]

@@ -15,3 +15,21 @@ variable "sg_ports_for_internet" {
   default = [80, 443] # 80 -> http, 443 -> https
   description = "List of allowed ports accessible through LB."
 }
+
+variable "desired_capacity" {
+  type = number
+  default = 2  
+  description = "Desired target number of instances the group aims to keep available"
+}
+
+variable "max_size" {
+  type = number
+  default = 2  
+  description = "Maximum number of instances the Auto Scaling Group can ever launch."
+}
+
+variable "min_size" {
+  type = number
+  default = 1
+  description = "Minimum number of instances the Auto Scaling Group "
+}

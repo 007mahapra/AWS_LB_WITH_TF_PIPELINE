@@ -8,7 +8,7 @@ resource "aws_vpc" "my_vpc" {
 resource "aws_subnet" "pub_subnets" {
   for_each                = { for idx, zone in var.availability_zone : idx => zone }
   vpc_id                  = aws_vpc.my_vpc.id
-  cidr_block              = "10.0.${each.key}.0/24" # Adjust CIDR block as needed
+  cidr_block              = "10.0.${each.key}.0/24" # Distributing IPs
   map_public_ip_on_launch = true
   availability_zone       = each.value
   tags = {
@@ -20,7 +20,7 @@ resource "aws_subnet" "pub_subnets" {
 resource "aws_subnet" "pvt_subnets" {
   for_each          = { for idx, zone in var.availability_zone : idx => zone }
   vpc_id            = aws_vpc.my_vpc.id
-  cidr_block        = "10.0.${each.key + 2}.0/24" # Adjust CIDR block as needed
+  cidr_block        = "10.0.${each.key + 2}.0/24" # Distributing IPs
   availability_zone = each.value
   tags = {
     "Name" = "PRIVATE_SUBNET_${each.value}"
