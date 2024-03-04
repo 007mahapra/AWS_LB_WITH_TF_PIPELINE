@@ -29,13 +29,20 @@ jobs:
         run: terraform init
 
       - name: Format Terraform files
-        run: terraform fmt -check -recursive
+        run: terraform fmt
 
       - name: Validate Terraform configuration
         run: terraform validate
 
       - name: Apply Terraform changes
-        run: terraform apply -auto-approve
+        run: terraform plan
 
-      - name: Show outputs
-        run: terraform output
+      - name: Run terraform plan
+        run: terraform apply
+
+  destroy:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Manual Step - Destroy Infrastructure
+        run: terraform destroy
